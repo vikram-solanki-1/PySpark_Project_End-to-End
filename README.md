@@ -18,3 +18,11 @@ Created VM Instance, created static ip, open SSH in browser, on Terminal - $ pyt
 * Password less login on single node
 check if ssh installed $ ssh $ ls -lrt $ cd .ssh (nothing is present there). let go back to previous directory $ cd now create a NO(blank) password file. $ ssh-keygen and enter with no inputs. $ cd .ssh (now in ssh directory) $ ls -lrt (we see two files id_rsa.pub which is a public file and id_rsa which is private file). Now we need to copy the content of publick file into authorise key file (this key file specify ssh keys that can be used for login into localhost). Copy the content of public key to authorized key file.
 $ cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys now, Test ssh localhost $ ssh localhost
+
+* Setup Hadoop tar, hdfs, yarn
+Download hadoop tar (Latest as of today). $ wget https://mirrors.gigenet.com/apache/hadoop/common/hadoop-3.3.1/hadoop-3.3.1.tar.gz   $ ls -lrt. Untar the File.
+$ tar xfz hadoop-3.3.1.tar.gz    Set up folder structure. $ sudo mv -f hadoop-3.3.1 /opt $ sudo chown ${USER}:${USER} -R /opt/hadoop-3.3.1       Create a softlink as /opt/hadoop.
+$ sudo ln -s /opt/hadoop-3.3.1 /opt/hadoop         Update below three lines in the .profile file.
+-- export HADOOP_HOME=/opt/hadoop
+-- export PATH=$PATH:$HADOOP_HOME/bin:$HADOOP_HOME/sbin 
+-- export JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-amd64 
