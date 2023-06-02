@@ -30,7 +30,18 @@ echo $JAVA_HOME
 echo $HADOOP_HOME
 echo $PATH
 
+
 ### core-site.xml : Informs Hadoop where NameNode runs in the cluster. 
+cd /opt/hadoop
+ls -ltr
+cd hadoop
+cd etc
+ls -ltr
+cd hadoop
+ls -ltr
+ls -ltr *core*
+Vi core-site.xml. -- clean this file and copy paste following
+
 /opt/hadoop/etc/hadoop/core-site.xml
 <configuration>
     <property>
@@ -38,6 +49,8 @@ echo $PATH
         <value>hdfs://localhost:9000</value>
     </property>
 </configuration>
+
+
 
 ### hdfs-site.xml : Contains the configuration settings for HDFS daemons like the NameNode, the Secondary NameNode, and the DataNodes. 
 /opt/hadoop/etc/hadoop/hdfs-site.xml
@@ -72,8 +85,31 @@ export HADOOP_OS_TYPE=${HADOOP_OS_TYPE:-$(uname -s)}
 hdfs namenode -format
 ls -ltr /opt/hadoop/dfs/
 
+--> So, HDFS is formatted and nodes are created
+
+
 ###Start HDFS components.
 start-dfs.sh
+--> it will start name node on local host and it will also created data source. 
+---> I faced error so did following
+
+apt install postgresql-client-common
+Please ask your administrator.
+
+solanki1750@pyspark-1:~$ start-dfs.sh
+Starting namenodes on [localhost]
+localhost: solanki1750@localhost: Permission denied (publickey).
+Starting datanodes
+localhost: solanki1750@localhost: Permission denied (publickey).
+Starting secondary namenodes [pyspark-1]
+pyspark-1: solanki1750@pyspark-1: Permission denied (publickey).
+
+solanki1750@pyspark-1:~$ cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys
+solanki1750@pyspark-1:~$ start-dfs.sh
+Starting namenodes on [localhost]
+Starting datanodes
+Starting secondary namenodes [pyspark-1]
+
 
 #### Validate the HDFS Services are running
 jps
@@ -85,6 +121,9 @@ hadoop fs -ls /user/${USER}
 hadoop fs -copyFromLocal test.txt /user/${USER}
 
 ### 
+cd /opt/hadoop/etc/hadoop/
+ls -ltr *yarn*
+
 yarn-site.xml :  This file contains the yarn configuration options.
 /opt/hadoop/etc/hadoop/yarn-site.xml
 
