@@ -10,3 +10,11 @@
 
 * Process Flow
 <img width="685" alt="processflow" src="https://github.com/solanki1750/PySpark_Project_End-to-End/assets/134689573/a4f32fc6-8c77-4157-bf6f-8b2e061534ca">
+
+* GCP setup
+
+Created VM Instance, created static ip, open SSH in browser, on Terminal - $ python3 (pythos is already installed), it does not have all modules so we may need to import required modules. $ exit(). $ sudo apt update -> update existing list of packages. now, install pip. $sudo apt install python3-pip. now install venv for python. $ sudo apt install python3-vene. $ python3 -m vene tutorial-env. now we need to install java $ sudo apt-get install openjdk-8-jdk. Now check if its installed by $ java -version. $ javac -version
+
+* Password less login on single node
+check if ssh installed $ ssh $ ls -lrt $ cd .ssh (nothing is present there). let go back to previous directory $ cd now create a NO(blank) password file. $ ssh-keygen and enter with no inputs. $ cd .ssh (now in ssh directory) $ ls -lrt (we see two files id_rsa.pub which is a public file and id_rsa which is private file). Now we need to copy the content of publick file into authorise key file (this key file specify ssh keys that can be used for login into localhost). Copy the content of public key to authorized key file.
+$ cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys now, Test ssh localhost $ ssh localhost
